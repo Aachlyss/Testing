@@ -87,10 +87,36 @@ namespace BankingSystem.Tests
             decimal creditAmount = 100;
 
             //Act
-            bankAccount.Deposit(creditAmount);
+            bankAccount.Credit(creditAmount);
 
             //Assert
-            Assert.AreEqual(creditAmount, bankAccount.Balance);
+            Assert.AreEqual(-100, bankAccount.Balance);
         }
+
+        [TestCase(5)]
+        public void IncreaseBalance(decimal percent)
+        {
+            //Arrange
+            BankAccount bankAccount = new BankAccount(100);
+            //Act
+            bankAccount.Increase(percent);
+            //Assert
+            Assert.AreEqual(105, bankAccount.Balance);
+
+        }
+
+        [TestCase(1001)]
+        [TestCase(2004)]
+        [TestCase(3500)]
+        public void Bonusbalance(decimal bonusAmount)
+        {
+            //Arrange
+            BankAccount bankAccount = new BankAccount(123);
+            //Act
+            bankAccount.Balance = bankAccount.Bonus();
+            //Assert
+            Assert.AreEqual(bankAccount.Bonus(), bankAccount.Balance);
+        }
+
     }
 }

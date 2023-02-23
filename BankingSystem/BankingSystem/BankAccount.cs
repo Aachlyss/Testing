@@ -35,9 +35,37 @@ namespace BankingSystem
 
             this.Balance -= cash;
         }
-        public void Increase(double percent)
+        public void Increase(decimal percent)
         {
-
+            this.Balance =this.Balance+ (this.Balance * percent) /100;
+        }
+        public void PaymentForCredit(decimal payment)
+        {
+            if (payment <=0)
+            {
+                throw new ArgumentException("Payment cannot be zero or negative!");
+            }
+            if (this.Balance<payment)
+            {
+                throw new ArgumentException("Not enough money!");
+            }
+            this.Balance -= payment;
+        }
+        public decimal Bonus()
+        {
+            if (this.Balance>=1000&&this.Balance<=2000)
+            {
+                this.Balance += 100;
+            }
+            else if (this.Balance > 2000 && this.Balance < 3000)
+            {
+                this.Balance += 200;
+            }
+            else if (this.Balance > 3000 )
+            {
+                this.Balance += 300;
+            }
+            return this.Balance;
         }
     }
 }
